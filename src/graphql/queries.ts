@@ -12,6 +12,9 @@ export const GET_DATA = gql`
     deaths @client {
       id
     }
+    recovered @client {
+      id
+    }
   }
 `;
 

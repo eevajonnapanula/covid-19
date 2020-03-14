@@ -2,11 +2,13 @@
   "site.title": "Covid-19 in Finland",
   "site.titles.confirmed": "Confirmed cases",
   "site.titles.deaths": "Deaths",
-  "site.titles.healed": "Healed",
-  "footer.data-source": "Data-source: HS-avoin data",
-  "footer.made-by": "This site is made by @eevajonnapanula",
+  "site.titles.recovered": "Recovered",
+  "footer.data-source": "Data-source: {HSLink}",
+  "footer.made-by": "This site is made by {GithubLink}",
   "numbers.confirmed": "confirmed cases",
   "numbers.deaths": "deaths",
-  "numbers.healed": "healed",
-  "numbers.population": "of finnish population"
+  "numbers.recovered": "recovered",
+  "numbers.today": "today",
+  "charts.confirmedPerDistrict": "Confirmed cases per health care district",
+  "charts.confirmedPerCountry": "Known infection source countries"
 }

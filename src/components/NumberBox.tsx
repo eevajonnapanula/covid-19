@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 interface NumberBoxProps {
-  number: string;
+  number: string | number;
   label: string;
 }
 

@@ -1,0 +1,14 @@
+{
+  "site.title": "Koronatartunnat Suomessa",
+  "site.titles.confirmed": "Varmistetut tapaukset",
+  "site.titles.deaths": "Kuolemat",
+  "site.titles.recovered": "Parantuneet",
+  "footer.data-source": "Data: {HSLink}",
+  "footer.made-by": "Tämän sivun on tehnyt {GithubLink}",
+  "numbers.confirmed": "varmistettua tapausta",
+  "numbers.deaths": "kuolemaa",
+  "numbers.recovered": "parantunutta",
+  "numbers.today": "tänään",
+  "charts.confirmedPerDistrict": "Vahvistetut sairaanhoitopiireittäin",
+  "charts.confirmedPerCountry": "Tiedossaolevat tartunnansaantimaat"
+}

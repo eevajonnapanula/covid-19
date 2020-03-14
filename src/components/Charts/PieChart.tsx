@@ -8,7 +8,6 @@ interface PieChartProps {
 
 const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
   //const labels = data.map((item: any) => item.x);
-  console.log(data);
   return (
     <>
       <h2>{title}</h2>

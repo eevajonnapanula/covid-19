@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
-import { GET_DATA } from '../../graphql/queries';
 import { formatDataToXAndY } from '../../utils/dataUtils';
+import { useIntl } from 'react-intl';
 
-const Charts = () => {
-  const { data } = useQuery(GET_DATA);
+interface ChartsProps {
+  data: any;
+}
+
+const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
+  const { formatMessage } = useIntl();
+
   const [infectionSources, setiInfectionSources] = useState([]);
   const [countries, setCountries] = useState([]);
 
@@ -30,9 +34,12 @@ const Charts = () => {
       <>
         <BarChart
           data={infectionSources}
-          title="Confirmed cases per health care district"
+          title={formatMessage({ id: 'charts.confirmedPerDistrict' })}
         />
-        <PieChart data={countries} title="Known infection source countries" />
+        <PieChart
+          data={countries}
+          title={formatMessage({ id: 'charts.confirmedPerCountry' })}
+        />
       </>
     );
   };

@@ -1,26 +1,21 @@
-import React from 'react';
+import React, { FunctionComponent, Dispatch } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Footer from './Footer';
 import Charts from './Charts/Charts';
-import NumberBox from './NumberBox';
 import styled from 'styled-components';
+import Numbers from './Numbers';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_DATA } from '../graphql/queries';
 
-const Rows = styled.div`
-  width: 100%;
-`;
+interface RootProps {
+  changeLocale: Dispatch<React.SetStateAction<'en' | 'fi'>>;
+}
 
-const Row = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 1rem;
+const Header = styled.header`
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
   width: 100%;
-
-  &:not(:last-child) {
-    margin-bottom: 0.5rem;
-  }
 `;
 
 const Main = styled.main`
@@ -30,56 +25,57 @@ const Main = styled.main`
   align-items: center;
 `;
 
-const Root = () => {
-  const { formatMessage } = useIntl();
+interface GroupButtonProps {
+  active: boolean;
+}
+
+const GroupButton = styled.button<GroupButtonProps>`
+  background-color: ${props => (props.active ? '#e4e3d3' : '#2e2d4d')};
+  border: 0.125rem solid #e4e3d3;
+  color: ${props => (props.active ? '#2e2d4d' : '#e4e3d3')};
+  padding: 1rem;
+  width: 4rem;
+  &:first-child {
+    border-radius: 0.5rem 0 0 0.5rem;
+    border-right: none;
+  }
+
+  &:last-child {
+    border-radius: 0 0.5rem 0.5rem 0;
+    border-left: none;
+  }
+`;
+
+const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
+  const { locale } = useIntl();
+  const { data } = useQuery(GET_DATA);
+
+  const handleLocaleChange = () => {
+    changeLocale(locale === 'en' ? 'fi' : 'en');
+  };
+
   return (
     <>
+      <Header>
+        <div>
+          <GroupButton onClick={handleLocaleChange} active={locale === 'en'}>
+            EN
+          </GroupButton>
+          <GroupButton onClick={handleLocaleChange} active={locale === 'fi'}>
+            FI
+          </GroupButton>
+        </div>
+      </Header>
       <Main>
         <h1>
           <FormattedMessage id="site.title" />
         </h1>
-        <Rows>
-          <h2>
-            <FormattedMessage id="site.titles.confirmed" />
-          </h2>
-          <Row>
-            <NumberBox
-              number="155"
-              label={formatMessage({ id: 'numbers.confirmed' })}
-            />
-            <NumberBox
-              number="0,003%"
-              label={formatMessage({ id: 'numbers.population' })}
-            />
-          </Row>
-          <h2>
-            <FormattedMessage id="site.titles.deaths" />
-          </h2>
-          <Row>
-            <NumberBox
-              number="0"
-              label={formatMessage({ id: 'numbers.deaths' })}
-            />
-            <NumberBox
-              number="0%"
-              label={formatMessage({ id: 'numbers.population' })}
-            />
-          </Row>
-          <h2>
-            <FormattedMessage id="site.titles.healed" />
-          </h2>
-          <Row>
-            <NumberBox
-              number="2"
-              label={formatMessage({ id: 'numbers.healed' })}
-            />
-            <NumberBox
-              number="0,003%"
-              label={formatMessage({ id: 'numbers.population' })}
-            />
-          </Row>
-        </Rows>
-        <Charts />
+        <Numbers
+          confirmed={{ all: data.confirmed.length, today: 2 }}
+          deaths={{ all: data.deaths.length, today: 0 }}
+          recovered={{ all: data.recovered.length, today: 0 }}
+        />
+        <Charts data={data} />
       </Main>
       <Footer />
     </>
