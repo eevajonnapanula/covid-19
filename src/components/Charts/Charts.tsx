@@ -1,7 +1,8 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
-import { formatDataToXAndY } from '../../utils/dataUtils';
+import LineChart from './LineChart';
+import { formatDataToXAndY, formatDatesToXAndY } from '../../utils/dataUtils';
 import { useIntl } from 'react-intl';
 
 interface ChartsProps {
@@ -13,6 +14,7 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
 
   const [infectionSources, setiInfectionSources] = useState([]);
   const [countries, setCountries] = useState([]);
+  const [infectionsPerDay, setInfectionsPerDay] = useState<any>([]);
 
   useEffect(() => {
     if (data) {
@@ -26,6 +28,9 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
         'infectionSourceCountry'
       );
       setCountries(formattedCountries);
+      const formattedInfectionsPerDay = formatDatesToXAndY(data.confirmed);
+
+      setInfectionsPerDay(formattedInfectionsPerDay);
     }
   }, [data]);
 
@@ -39,6 +44,10 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
         <PieChart
           data={countries}
           title={formatMessage({ id: 'charts.confirmedPerCountry' })}
+        />
+        <LineChart
+          data={infectionsPerDay}
+          title={formatMessage({ id: 'charts.infectionsPerDay' })}
         />
       </>
     );

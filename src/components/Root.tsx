@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Numbers from './Numbers';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DATA } from '../graphql/queries';
+import isToday from 'date-fns/isToday';
 
 interface RootProps {
   changeLocale: Dispatch<React.SetStateAction<'en' | 'fi'>>;
@@ -23,6 +24,8 @@ const Main = styled.main`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 interface GroupButtonProps {
@@ -71,9 +74,24 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
           <FormattedMessage id="site.title" />
         </h1>
         <Numbers
-          confirmed={{ all: data.confirmed.length, today: 2 }}
-          deaths={{ all: data.deaths.length, today: 0 }}
-          recovered={{ all: data.recovered.length, today: 0 }}
+          confirmed={{
+            all: data.confirmed.length,
+            today: data.confirmed.filter((item: any) =>
+              isToday(new Date(item.date))
+            ).length,
+          }}
+          deaths={{
+            all: data.deaths.length,
+            today: data.deaths.filter((item: any) =>
+              isToday(new Date(item.date))
+            ).length,
+          }}
+          recovered={{
+            all: data.recovered.length,
+            today: data.recovered.filter((item: any) =>
+              isToday(new Date(item.date))
+            ).length,
+          }}
         />
         <Charts data={data} />
       </Main>

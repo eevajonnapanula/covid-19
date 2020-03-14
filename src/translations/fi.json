@@ -10,5 +10,6 @@
   "numbers.recovered": "parantunutta",
   "numbers.today": "tänään",
   "charts.confirmedPerDistrict": "Vahvistetut sairaanhoitopiireittäin",
-  "charts.confirmedPerCountry": "Tiedossaolevat tartunnansaantimaat"
+  "charts.confirmedPerCountry": "Tiedossaolevat tartunnansaantimaat",
+  "charts.infectionsPerDay": "Tartunnat päivässä"
 }

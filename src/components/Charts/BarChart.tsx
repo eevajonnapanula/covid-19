@@ -6,18 +6,24 @@ import {
   VictoryLabel,
   VictoryAxis,
   VictoryContainer,
+  VictoryPortal,
 } from 'victory';
+import styled from 'styled-components';
 
 interface BarChartProps {
   data: any;
   title: string;
 }
 
+const ChartComponentWrapper = styled.div`
+  margin-bottom: 3rem;
+`;
+
 const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
   const labels = data.map((item: any) => item.x);
 
   return (
-    <>
+    <ChartComponentWrapper>
       <h2>{title}</h2>
       <VictoryChart
         theme={VictoryTheme.grayscale}
@@ -27,16 +33,20 @@ const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
         <VictoryAxis
           dependentAxis={true}
           tickLabelComponent={
-            <VictoryLabel style={{ fontSize: '12px', fill: '#e4e3d3' }} />
+            <VictoryPortal>
+              <VictoryLabel style={{ fontSize: '12px', fill: '#e4e3d3' }} />
+            </VictoryPortal>
           }
         />
         <VictoryAxis
           tickValues={labels}
           tickLabelComponent={
-            <VictoryLabel
-              style={{ textAnchor: 'end', fontSize: '12px', fill: '#e4e3d3' }}
-              angle={-75}
-            />
+            <VictoryPortal>
+              <VictoryLabel
+                style={{ textAnchor: 'end', fontSize: '12px', fill: '#e4e3d3' }}
+                angle={-75}
+              />
+            </VictoryPortal>
           }
         />
         <VictoryBar
@@ -58,7 +68,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
           labelComponent={<VictoryLabel />}
         />
       </VictoryChart>
-    </>
+    </ChartComponentWrapper>
   );
 };
 

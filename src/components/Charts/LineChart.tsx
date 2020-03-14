@@ -2,10 +2,11 @@ import React, { FunctionComponent } from 'react';
 import {
   VictoryTheme,
   VictoryChart,
-  VictoryBar,
+  VictoryLine,
   VictoryLabel,
   VictoryAxis,
   VictoryContainer,
+  VictoryPortal,
 } from 'victory';
 
 interface LineChartProps {
@@ -27,25 +28,30 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
         <VictoryAxis
           dependentAxis={true}
           tickLabelComponent={
-            <VictoryLabel style={{ fontSize: '12px', fill: '#e4e3d3' }} />
+            <VictoryPortal>
+              <VictoryLabel style={{ fontSize: '12px', fill: '#e4e3d3' }} />
+            </VictoryPortal>
           }
         />
         <VictoryAxis
           tickValues={labels}
           tickLabelComponent={
-            <VictoryLabel
-              style={{ textAnchor: 'end', fontSize: '12px', fill: '#e4e3d3' }}
-              angle={-75}
-            />
+            <VictoryPortal>
+              <VictoryLabel
+                style={{ textAnchor: 'end', fontSize: '12px', fill: '#e4e3d3' }}
+                angle={-75}
+              />
+            </VictoryPortal>
           }
         />
-        <VictoryBar
+        <VictoryLine
+          interpolation="natural"
           data={data}
           style={{
             parent: {
               border: '1px solid #ccc',
             },
-            data: { fill: '#23c9ff' },
+            data: { stroke: '#23c9ff' },
             labels: {
               fontSize: 15,
               fill: '#e4e3d3',
@@ -55,7 +61,7 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
           animate={{
             duration: 2000,
           }}
-          labelComponent={<VictoryLabel />}
+          padding={{ top: 20, bottom: 60 }}
         />
       </VictoryChart>
     </>

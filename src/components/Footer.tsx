@@ -14,8 +14,8 @@ const Footer = () => (
           ),
         }}
       />
-      <br />
-
+    </p>
+    <p>
       <FormattedMessage
         id="footer.made-by"
         values={{
