@@ -1,0 +1,1 @@
+export const FINNISH_POPULATION = 5528442;

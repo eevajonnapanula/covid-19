@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i|Roboto+Slab:600&display=swap');
+
+:root {
+  --c-background: #2e2d4d;
+  --c-text: #e4e3d3;
+  --c-primary: #23c9ff;
+  --c-secondary: #f7b267;
+  --c-tertiary: #a93f55;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +15,34 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Lato', sans-serif;
+  color: var(--c-text);
+  background: var(--c-background);
+}
+
+#root {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 2.5rem;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 85%;
+  padding-top: 0.25em;
+  border-bottom: 0.05em solid var(--c-primary);
 }

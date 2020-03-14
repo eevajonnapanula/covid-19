@@ -1,0 +1,12 @@
+{
+  "site.title": "Covid-19 in Finland",
+  "site.titles.confirmed": "Confirmed cases",
+  "site.titles.deaths": "Deaths",
+  "site.titles.healed": "Healed",
+  "footer.data-source": "Data-source: HS-avoin data",
+  "footer.made-by": "This site is made by @eevajonnapanula",
+  "numbers.confirmed": "confirmed cases",
+  "numbers.deaths": "deaths",
+  "numbers.healed": "healed",
+  "numbers.population": "of finnish population"
+}
