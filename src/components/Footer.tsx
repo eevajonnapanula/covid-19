@@ -4,6 +4,16 @@ import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
   font-size: 0.85rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  @media only screen and (min-width: 770px) {
+    width: 50rem;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 `;
 
 const Footer = () => (
@@ -19,7 +29,8 @@ const Footer = () => (
           ),
         }}
       />
-      <span> | </span>
+    </p>
+    <p>
       <FormattedMessage
         id="footer.made-by"
         values={{
