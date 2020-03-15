@@ -20,7 +20,6 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
       <h2>{title}</h2>
       <VictoryLegend
         name="legend"
-        y={50}
         orientation="horizontal"
         gutter={20}
         data={data
@@ -39,7 +38,7 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
         ]}
         style={{ labels: { fill: '#e4e3d3' } }}
         itemsPerRow={5}
-        height={100}
+        height={50}
       />
       <VictoryPie
         name="bar"

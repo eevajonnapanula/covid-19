@@ -30,7 +30,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
             theme={VictoryTheme.grayscale}
             domainPadding={20}
             containerComponent={<VictoryContainer responsive={true} />}
-            padding={{ bottom: 100 }}
+            padding={{ bottom: 150 }}
           >
             <VictoryAxis
               style={{
