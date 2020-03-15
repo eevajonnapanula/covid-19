@@ -10,7 +10,7 @@
   "numbers.recovered": "recovered",
   "numbers.today": "today",
   "charts.confirmedPerDistrict": "Confirmed cases per health care district",
-  "charts.confirmedPerCountry": "Known infection source countries",
+  "charts.confirmedPerCountry": "Known infection sources by country",
   "charts.infectionsPerDay": "Numbers per day",
   "charts.totalInfectionsPerDay": "Total infections"
 }
