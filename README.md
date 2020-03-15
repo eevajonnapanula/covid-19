@@ -14,7 +14,11 @@ Project is live in [https://eevis.codes/covid-19](https://eevis.codes/covid-19)
 
 ## Development
 
+First, install dependencies 
+
 `npm install`
+
+then, run the project
 
 `npm start`
 
