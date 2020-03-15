@@ -19,13 +19,12 @@ const Footer = () => (
           ),
         }}
       />
-    </p>
-    <p>
+      <span> | </span>
       <FormattedMessage
         id="footer.made-by"
         values={{
           GithubLink: (
-            <a href="https://github.com/eevajonnapanula">@eevajonnapanula</a>
+            <a href="https://github.com/eevajonnapanula/covid-19">Github</a>
           ),
         }}
       />

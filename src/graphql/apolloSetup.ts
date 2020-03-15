@@ -1,11 +1,8 @@
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { RestLink } from 'apollo-link-rest';
-import data from '../data.json';
 
 const cache = new InMemoryCache();
-
-cache.writeData({ data });
 
 const restLink = new RestLink({
   uri:

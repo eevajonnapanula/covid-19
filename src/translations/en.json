@@ -4,7 +4,7 @@
   "site.titles.deaths": "Deaths",
   "site.titles.recovered": "Recovered",
   "footer.data-source": "Data-source: {HSLink}",
-  "footer.made-by": "This site is made by {GithubLink}",
+  "footer.made-by": "Source code in {GithubLink}",
   "numbers.confirmed": "confirmed",
   "numbers.deaths": "deaths",
   "numbers.recovered": "recovered",

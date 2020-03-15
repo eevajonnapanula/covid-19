@@ -78,12 +78,12 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
                 {
                   name: `${formatMessage({
                     id: 'labels.recovered',
-                  })} ${deaths}`,
+                  })} ${recovered}`,
                 },
                 {
                   name: `${formatMessage({
                     id: 'labels.deaths',
-                  })} ${recovered}`,
+                  })} ${deaths}`,
                 },
               ]}
               colorScale={['#23c9ff', '#f7b267', '#a93f55']}

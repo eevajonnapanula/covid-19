@@ -56,7 +56,6 @@ const GroupButton = styled.button<GroupButtonProps>`
 const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
   const { locale } = useIntl();
   const { data } = useQuery(GET_DATA);
-
   const handleLocaleChange = () => {
     changeLocale();
   };
@@ -77,27 +76,31 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
         <h1>
           <FormattedMessage id="site.title" />
         </h1>
-        <Numbers
-          confirmed={{
-            all: data.confirmed.length,
-            today: data.confirmed.filter((item: Confirmed) =>
-              isToday(new Date(item.date))
-            ).length,
-          }}
-          deaths={{
-            all: data.deaths.length,
-            today: data.deaths.filter((item: Death) =>
-              isToday(new Date(item.date))
-            ).length,
-          }}
-          recovered={{
-            all: data.recovered.length,
-            today: data.recovered.filter((item: Recovered) =>
-              isToday(new Date(item.date))
-            ).length,
-          }}
-        />
-        <Charts data={data} />
+        {data && (
+          <>
+            <Numbers
+              confirmed={{
+                all: data.data.confirmed.length,
+                today: data.data.confirmed.filter((item: Confirmed) =>
+                  isToday(new Date(item.date))
+                ).length,
+              }}
+              deaths={{
+                all: data.data.deaths.length,
+                today: data.data.deaths.filter((item: Death) =>
+                  isToday(new Date(item.date))
+                ).length,
+              }}
+              recovered={{
+                all: data.data.recovered.length,
+                today: data.data.recovered.filter((item: Recovered) =>
+                  isToday(new Date(item.date))
+                ).length,
+              }}
+            />
+            <Charts data={data.data} />
+          </>
+        )}
       </Main>
       <Footer />
     </>
