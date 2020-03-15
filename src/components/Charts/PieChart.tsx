@@ -14,20 +14,49 @@ interface PieChartProps {
 }
 
 const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
-  //const labels = data.map((item: any) => item.x);
   return (
     <>
       <h2>{title}</h2>
-
+      <VictoryLegend
+        name="legend"
+        y={50}
+        orientation="horizontal"
+        gutter={20}
+        data={data
+          .filter((item: any) => item.x)
+          .map((item: any) => {
+            return { name: `${item.x}: ${item.y}` };
+          })}
+        colorScale={[
+          '#23c9ff',
+          '#f7b267',
+          '#a93f55',
+          '#6B2D5C',
+          '#D7A7B1',
+          '#476774',
+          '#FBF2C0',
+        ]}
+        style={{ labels: { fill: '#e4e3d3' } }}
+        itemsPerRow={5}
+        height={100}
+      />
       <VictoryPie
         name="bar"
         padAngle={2}
         innerRadius={100}
         data={data.filter((item: any) => item.x)}
-        colorScale={['#23c9ff', '#f7b267', '#a93f55', '#6B2D5C', '#D7A7B1']}
+        colorScale={[
+          '#23c9ff',
+          '#f7b267',
+          '#a93f55',
+          '#6B2D5C',
+          '#D7A7B1',
+          '#476774',
+          '#FBF2C0',
+        ]}
         containerComponent={<VictoryContainer responsive={true} />}
         theme={VictoryTheme.grayscale}
-        style={{ labels: { fill: '#e4e3d3' } }}
+        style={{ labels: { fill: 'transparent' } }}
         labels={({ datum }) => `${datum.x}: ${datum.y}`}
         labelComponent={
           <VictoryPortal>
@@ -44,19 +73,19 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
                     target: 'labels',
                     mutation: props => {
                       const fill = props.style && props.style.fill;
-                      return fill === '#f7b267'
-                        ? null
-                        : { style: { fill: '#f7b267' } };
+                      return fill === 'transparent'
+                        ? { style: { fill: '#e4e3d3' } }
+                        : { style: { fill: 'transparent' } };
                     },
                   },
                 ];
               },
-              onMouseEnter: () => {
+              onMouseOver: () => {
                 return [
                   {
                     target: 'labels',
                     mutation: () => {
-                      return { style: { fill: '#f7b267' } };
+                      return { style: { fill: '#e4e3d3' } };
                     },
                   },
                 ];
@@ -66,7 +95,7 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
                   {
                     target: 'labels',
                     mutation: () => {
-                      return null;
+                      return { style: { fill: 'transparent' } };
                     },
                   },
                 ];
@@ -74,19 +103,6 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
             },
           },
         ]}
-      />
-      <VictoryLegend
-        name="legend"
-        y={50}
-        orientation="horizontal"
-        gutter={20}
-        data={data
-          .filter((item: any) => item.x)
-          .map((item: any) => {
-            return { name: item.x };
-          })}
-        colorScale={['#23c9ff', '#f7b267', '#a93f55', '#6B2D5C', '#D7A7B1']}
-        style={{ labels: { fill: '#e4e3d3' } }}
       />
     </>
   );

@@ -2,8 +2,13 @@ import React, { useState, useEffect, FunctionComponent } from 'react';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
 import LineChart from './LineChart';
-import { formatDataToXAndY, formatDatesToXAndY } from '../../utils/dataUtils';
+import {
+  formatDataToXAndY,
+  formatDatesToXAndY,
+  formatTotalInfections,
+} from '../../utils/dataUtils';
 import { useIntl } from 'react-intl';
+import GroupChart from './GroupChart';
 
 interface ChartsProps {
   data: any;
@@ -14,7 +19,12 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
 
   const [infectionSources, setiInfectionSources] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [infectionsPerDay, setInfectionsPerDay] = useState<any>([]);
+  const [infectionsPerDay, setInfectionsPerDay] = useState<any>({
+    confirmed: [],
+    deaths: [],
+    recovered: [],
+  });
+  const [totalInfectionsPerDay, setTotalInfectionsPerDay] = useState<any>([]);
 
   useEffect(() => {
     if (data) {
@@ -28,15 +38,30 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
         'infectionSourceCountry'
       );
       setCountries(formattedCountries);
-      const formattedInfectionsPerDay = formatDatesToXAndY(data.confirmed);
-
+      const formattedInfectionsPerDay = {
+        confirmed: formatDatesToXAndY(data.confirmed),
+        deaths: formatDatesToXAndY(data.deaths),
+        recovered: formatDatesToXAndY(data.recovered),
+      };
       setInfectionsPerDay(formattedInfectionsPerDay);
+      const formattedTotalInfectionsPerDay = formatTotalInfections(
+        data.confirmed
+      );
+      setTotalInfectionsPerDay(formattedTotalInfectionsPerDay);
     }
   }, [data]);
 
   const renderCharts = () => {
     return (
       <>
+        <LineChart
+          data={totalInfectionsPerDay}
+          title={formatMessage({ id: 'charts.totalInfectionsPerDay' })}
+        />
+        <GroupChart
+          data={infectionsPerDay}
+          title={formatMessage({ id: 'charts.infectionsPerDay' })}
+        />
         <BarChart
           data={infectionSources}
           title={formatMessage({ id: 'charts.confirmedPerDistrict' })}
@@ -44,10 +69,6 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
         <PieChart
           data={countries}
           title={formatMessage({ id: 'charts.confirmedPerCountry' })}
-        />
-        <LineChart
-          data={infectionsPerDay}
-          title={formatMessage({ id: 'charts.infectionsPerDay' })}
         />
       </>
     );

@@ -24,8 +24,11 @@ const Main = styled.main`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 1rem 2rem 1rem;
+  width: 90%;
+  @media only screen and (min-width: 770px) {
+    width: 50rem;
+  }
 `;
 
 interface GroupButtonProps {

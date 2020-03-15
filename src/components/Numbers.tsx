@@ -17,6 +17,10 @@ interface NumbersProps {
 
 const Rows = styled.div`
   width: 100%;
+  padding-bottom: 2rem;
+  @media only screen and (min-width: 770px) {
+    width: 30rem;
+  }
 `;
 
 const Row = styled.div`
@@ -26,8 +30,6 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-
   &:not(:last-child) {
     margin-bottom: 0.5rem;
   }

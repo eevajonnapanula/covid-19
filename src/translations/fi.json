@@ -11,5 +11,6 @@
   "numbers.today": "tänään",
   "charts.confirmedPerDistrict": "Vahvistetut sairaanhoitopiireittäin",
   "charts.confirmedPerCountry": "Tiedossaolevat tartunnansaantimaat",
-  "charts.infectionsPerDay": "Tartunnat päivässä"
+  "charts.infectionsPerDay": "Lukemat päivittäin",
+  "charts.totalInfectionsPerDay": "Kaikki tartunnat"
 }

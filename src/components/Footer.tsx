@@ -1,8 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+
+const StyledFooter = styled.footer`
+  font-size: 0.85rem;
+`;
 
 const Footer = () => (
-  <footer>
+  <StyledFooter>
     <p>
       <FormattedMessage
         id="footer.data-source"
@@ -25,7 +30,7 @@ const Footer = () => (
         }}
       />
     </p>
-  </footer>
+  </StyledFooter>
 );
 
 export default Footer;
