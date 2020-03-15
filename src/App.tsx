@@ -11,12 +11,24 @@ const translations = {
   fi,
 };
 
+type LocaleType = 'en' | 'fi';
+
 const App = () => {
-  const [locale, setLocale] = useState<'en' | 'fi'>('en');
+  const localeFromLocalStorage = localStorage.getItem('locale');
+  const localeToSet =
+    localeFromLocalStorage === 'en' || localeFromLocalStorage === 'fi'
+      ? localeFromLocalStorage
+      : 'fi';
+  const [locale, setLocale] = useState<LocaleType>(localeToSet);
+  const hanldeLocaleChange = () => {
+    localStorage.setItem('locale', locale === 'en' ? 'fi' : 'en');
+    setLocale(locale === 'en' ? 'fi' : 'en');
+  };
+
   return (
     <IntlProvider locale={locale} messages={translations[locale]}>
       <ApolloProvider client={client}>
-        <Root changeLocale={setLocale} />
+        <Root changeLocale={hanldeLocaleChange} />
       </ApolloProvider>
     </IntlProvider>
   );

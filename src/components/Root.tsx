@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Dispatch } from 'react';
+import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Footer from './Footer';
 import Charts from './Charts/Charts';
@@ -10,7 +10,7 @@ import isToday from 'date-fns/isToday';
 import { Confirmed, Death, Recovered } from '../interfaces';
 
 interface RootProps {
-  changeLocale: Dispatch<React.SetStateAction<'en' | 'fi'>>;
+  changeLocale: () => void;
 }
 
 const Header = styled.header`
@@ -58,18 +58,18 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
   const { data } = useQuery(GET_DATA);
 
   const handleLocaleChange = () => {
-    changeLocale(locale === 'en' ? 'fi' : 'en');
+    changeLocale();
   };
 
   return (
     <>
       <Header>
         <div>
-          <GroupButton onClick={handleLocaleChange} active={locale === 'en'}>
-            EN
-          </GroupButton>
           <GroupButton onClick={handleLocaleChange} active={locale === 'fi'}>
             FI
+          </GroupButton>
+          <GroupButton onClick={handleLocaleChange} active={locale === 'en'}>
+            EN
           </GroupButton>
         </div>
       </Header>
