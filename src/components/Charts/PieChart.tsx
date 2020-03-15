@@ -7,9 +7,10 @@ import {
   VictoryLabel,
   VictoryLegend,
 } from 'victory';
+import { XAndY } from '../../interfaces';
 
 interface PieChartProps {
-  data: any;
+  data: XAndY[];
   title: string;
 }
 
@@ -23,8 +24,8 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
         orientation="horizontal"
         gutter={20}
         data={data
-          .filter((item: any) => item.x)
-          .map((item: any) => {
+          .filter(item => item.x)
+          .map(item => {
             return { name: `${item.x}: ${item.y}` };
           })}
         colorScale={[
@@ -44,7 +45,7 @@ const PieChart: FunctionComponent<PieChartProps> = ({ data, title }) => {
         name="bar"
         padAngle={2}
         innerRadius={100}
-        data={data.filter((item: any) => item.x)}
+        data={data.filter(item => item.x)}
         colorScale={[
           '#23c9ff',
           '#f7b267',

@@ -7,6 +7,7 @@ import Numbers from './Numbers';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_DATA } from '../graphql/queries';
 import isToday from 'date-fns/isToday';
+import { Confirmed, Death, Recovered } from '../interfaces';
 
 interface RootProps {
   changeLocale: Dispatch<React.SetStateAction<'en' | 'fi'>>;
@@ -79,19 +80,19 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
         <Numbers
           confirmed={{
             all: data.confirmed.length,
-            today: data.confirmed.filter((item: any) =>
+            today: data.confirmed.filter((item: Confirmed) =>
               isToday(new Date(item.date))
             ).length,
           }}
           deaths={{
             all: data.deaths.length,
-            today: data.deaths.filter((item: any) =>
+            today: data.deaths.filter((item: Death) =>
               isToday(new Date(item.date))
             ).length,
           }}
           recovered={{
             all: data.recovered.length,
-            today: data.recovered.filter((item: any) =>
+            today: data.recovered.filter((item: Recovered) =>
               isToday(new Date(item.date))
             ).length,
           }}

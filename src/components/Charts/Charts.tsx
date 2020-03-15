@@ -9,22 +9,25 @@ import {
 } from '../../utils/dataUtils';
 import { useIntl } from 'react-intl';
 import GroupChart from './GroupChart';
+import { Data, XAndY, DataInXAndY } from '../../interfaces';
 
 interface ChartsProps {
-  data: any;
+  data: Data;
 }
 
 const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
   const { formatMessage } = useIntl();
 
-  const [infectionSources, setiInfectionSources] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const [infectionsPerDay, setInfectionsPerDay] = useState<any>({
+  const [infectionSources, setiInfectionSources] = useState<XAndY[]>([]);
+  const [countries, setCountries] = useState<XAndY[]>([]);
+  const [infectionsPerDay, setInfectionsPerDay] = useState<DataInXAndY>({
     confirmed: [],
     deaths: [],
     recovered: [],
   });
-  const [totalInfectionsPerDay, setTotalInfectionsPerDay] = useState<any>([]);
+  const [totalInfectionsPerDay, setTotalInfectionsPerDay] = useState<XAndY[]>(
+    []
+  );
 
   useEffect(() => {
     if (data) {

@@ -8,15 +8,16 @@ import {
   VictoryPortal,
   VictoryLabel,
 } from 'victory';
+import { XAndY } from '../../interfaces';
 
 interface BarChartProps {
-  data: any;
+  data: XAndY[];
   title: string;
 }
 
 const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
-  const labelsX = data.map((item: any) => item.x);
-  const labelsY = data.map((item: any) => item.y);
+  const labelsX = data.map(item => item.x);
+  const labelsY = data.map(item => item.y);
 
   const maxY = labelsY.length > 0 ? Math.max(...labelsY) : 0;
 
@@ -63,7 +64,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
             <VictoryBar
               maxDomain={{ y: maxY + 20 }}
               data={data}
-              labels={labelsY}
+              labels={labelsY.map(item => item.toString())}
               style={{
                 parent: {
                   border: '1px solid #ccc',

@@ -10,9 +10,10 @@ import {
   VictoryStack,
   VictoryLegend,
 } from 'victory';
+import { DataInXAndY } from '../../interfaces';
 
 interface GroupChartProps {
-  data: any;
+  data: DataInXAndY;
   title: string;
 }
 
@@ -25,10 +26,10 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
     deaths: undefined,
     recovered: undefined,
   });
-  const labelsX = data.confirmed.map((item: any) => item.x);
-  const labelsConfirmedY = data.confirmed.map((item: any) => item.y);
-  const labelsDeathsY = data.deaths.map((item: any) => item.y);
-  const labelsRecoveredY = data.recovered.map((item: any) => item.y);
+  const labelsX = data.confirmed.map(item => item.x);
+  const labelsConfirmedY = data.confirmed.map(item => item.y);
+  const labelsDeathsY = data.deaths.map(item => item.y);
+  const labelsRecoveredY = data.recovered.map(item => item.y);
 
   const maxConfirmedY = getmaxConfirmedY(labelsConfirmedY);
 
@@ -109,7 +110,7 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
               <VictoryBar
                 maxDomain={{ y: maxConfirmedY + 20 }}
                 data={data.confirmed}
-                labels={labelsConfirmedY}
+                labels={labelsConfirmedY.map(item => item.toString())}
                 style={{
                   labels: {
                     fill: 'none',
@@ -163,7 +164,7 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
               <VictoryBar
                 maxDomain={{ y: maxConfirmedY + 20 }}
                 data={data.deaths}
-                labels={labelsDeathsY}
+                labels={labelsDeathsY.map(item => item.toString())}
                 style={{
                   labels: {
                     fill: 'none',
@@ -217,7 +218,7 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
               <VictoryBar
                 maxDomain={{ y: maxConfirmedY + 20 }}
                 data={data.recovered}
-                labels={labelsRecoveredY}
+                labels={labelsRecoveredY.map(item => item.toString())}
                 style={{
                   labels: {
                     fill: 'none',

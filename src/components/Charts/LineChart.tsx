@@ -10,19 +10,15 @@ import {
   VictoryTooltip,
   VictoryScatter,
 } from 'victory';
-
-interface DataType {
-  x: string;
-  y: number;
-}
+import { XAndY } from '../../interfaces';
 
 interface LineChartProps {
-  data: any;
+  data: XAndY[];
   title: string;
 }
 
 const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
-  const labels = data.map((item: any) => item.y);
+  const labels = data.map(item => item.y);
 
   return (
     <>
