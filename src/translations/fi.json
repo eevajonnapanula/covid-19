@@ -12,5 +12,10 @@
   "charts.confirmedPerDistrict": "Vahvistetut tartunnat sairaanhoitopiireittäin",
   "charts.confirmedPerCountry": "Tiedossa olevat tartunnansaantimaat",
   "charts.infectionsPerDay": "Lukemat päivittäin",
-  "charts.totalInfectionsPerDay": "Kaikki tartunnat"
+  "charts.totalInfectionsPerDay": "Kaikki tartunnat",
+  "labels.confirmed": "Varmistettuja",
+  "labels.deaths": "Kuolleita",
+  "labels.recovered": "Toipuneita",
+  "labels.pcs": "kpl",
+  "labels.date": "Päivä"
 }

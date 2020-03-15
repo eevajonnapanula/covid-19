@@ -11,6 +11,7 @@ import {
   VictoryScatter,
 } from 'victory';
 import { XAndY } from '../../interfaces';
+import { useIntl } from 'react-intl';
 
 interface LineChartProps {
   data: XAndY[];
@@ -19,7 +20,7 @@ interface LineChartProps {
 
 const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
   const labels = data.map(item => item.y);
-
+  const { formatMessage } = useIntl();
   return (
     <>
       <h2>{title}</h2>
@@ -34,7 +35,7 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
             axis: { stroke: '#e4e3d3' },
             grid: { stroke: 'rgba(188, 187, 174, 0.3)' },
           }}
-          tickFormat={t => `${t} kpl`}
+          tickFormat={t => `${t} ${formatMessage({ id: 'labels.pcs' })}`}
           dependentAxis={true}
           tickLabelComponent={
             <VictoryPortal>

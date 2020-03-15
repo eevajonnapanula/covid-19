@@ -1,16 +1,21 @@
 {
-  "site.title": "Covid-19 in Finland",
+  "site.title": "COVID-19 in Finland",
   "site.titles.confirmed": "Confirmed cases",
   "site.titles.deaths": "Deaths",
   "site.titles.recovered": "Recovered",
   "footer.data-source": "Data-source: {HSLink}",
   "footer.made-by": "This site is made by {GithubLink}",
-  "numbers.confirmed": "confirmed cases",
+  "numbers.confirmed": "confirmed",
   "numbers.deaths": "deaths",
   "numbers.recovered": "recovered",
   "numbers.today": "today",
   "charts.confirmedPerDistrict": "Confirmed cases per health care district",
   "charts.confirmedPerCountry": "Known infection sources by country",
   "charts.infectionsPerDay": "Numbers per day",
-  "charts.totalInfectionsPerDay": "Total infections"
+  "charts.totalInfectionsPerDay": "Total infections",
+  "labels.confirmed": "Confirmed",
+  "labels.deaths": "Deaths",
+  "labels.recovered": "Recovered",
+  "labels.pcs": "pcs",
+  "labels.date": "Date"
 }

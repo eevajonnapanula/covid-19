@@ -9,6 +9,7 @@ import {
   VictoryLabel,
 } from 'victory';
 import { XAndY } from '../../interfaces';
+import { useIntl } from 'react-intl';
 
 interface BarChartProps {
   data: XAndY[];
@@ -20,7 +21,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
   const labelsY = data.map(item => item.y);
 
   const maxY = labelsY.length > 0 ? Math.max(...labelsY) : 0;
-
+  const { formatMessage } = useIntl();
   return (
     <>
       <h2>{title}</h2>
@@ -37,7 +38,7 @@ const BarChart: FunctionComponent<BarChartProps> = ({ data, title }) => {
                 axis: { stroke: '#e4e3d3' },
                 grid: { stroke: 'rgba(188, 187, 174, 0.3)' },
               }}
-              tickFormat={t => `${t} kpl`}
+              tickFormat={t => `${t} ${formatMessage({ id: 'labels.pcs' })}`}
               dependentAxis={true}
               tickLabelComponent={
                 <VictoryPortal>

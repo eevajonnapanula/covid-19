@@ -4,13 +4,14 @@ import {
   VictoryChart,
   VictoryBar,
   VictoryAxis,
-  VictoryContainer,
   VictoryPortal,
   VictoryLabel,
   VictoryStack,
   VictoryLegend,
+  VictoryVoronoiContainer,
 } from 'victory';
 import { DataInXAndY } from '../../interfaces';
+import { useIntl } from 'react-intl';
 
 interface GroupChartProps {
   data: DataInXAndY;
@@ -21,18 +22,31 @@ const getmaxConfirmedY = (labels: number[]) =>
   labels.length > 0 ? Math.max(...labels) : 0;
 
 const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
-  const [currentValues, setCurrentValues] = useState({
-    confirmed: undefined,
-    deaths: undefined,
-    recovered: undefined,
-  });
+  const { formatMessage } = useIntl();
   const labelsX = data.confirmed.map(item => item.x);
   const labelsConfirmedY = data.confirmed.map(item => item.y);
-  const labelsDeathsY = data.deaths.map(item => item.y);
-  const labelsRecoveredY = data.recovered.map(item => item.y);
-
+  const [date, setDate] = useState('');
+  const [confirmed, setConfirmed] = useState('');
+  const [deaths, setDeaths] = useState('');
+  const [recovered, setRecovered] = useState('');
   const maxConfirmedY = getmaxConfirmedY(labelsConfirmedY);
 
+  const handleActivate = (points: any) => {
+    const confirmedPoint = points.find(
+      (item: any) => item.childName === 'bar-confirmed'
+    );
+    const deathPoint = points.find(
+      (item: any) => item.childName === 'bar-deaths'
+    );
+    const recoveredPoint = points.find(
+      (item: any) => item.childName === 'bar-recovered'
+    );
+
+    setConfirmed(confirmedPoint.y);
+    setDeaths(deathPoint.y);
+    setRecovered(recoveredPoint.y);
+    setDate(confirmedPoint.x);
+  };
   return (
     <>
       <h2>{title}</h2>
@@ -41,39 +55,49 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
           <VictoryChart
             theme={VictoryTheme.grayscale}
             domainPadding={20}
-            containerComponent={<VictoryContainer responsive={true} />}
             padding={{ bottom: 100 }}
+            containerComponent={
+              <VictoryVoronoiContainer
+                onActivated={points => handleActivate(points)}
+                voronoiDimension="x"
+              />
+            }
           >
             <VictoryLegend
               name="legend"
+              title={`${formatMessage({ id: 'labels.date' })} ${date}`}
               orientation="vertical"
+              height={50}
               gutter={10}
               data={[
                 {
-                  name: `Confirmed ${
-                    !!currentValues.confirmed ? currentValues.confirmed : ''
-                  }`,
+                  name: `${formatMessage({
+                    id: 'labels.confirmed',
+                  })} ${confirmed}`,
                 },
                 {
-                  name: `Recovered ${
-                    !!currentValues.recovered ? currentValues.recovered : ''
-                  }`,
+                  name: `${formatMessage({
+                    id: 'labels.recovered',
+                  })} ${deaths}`,
                 },
                 {
-                  name: `Deaths ${
-                    !!currentValues.deaths ? currentValues.deaths : ''
-                  }`,
+                  name: `${formatMessage({
+                    id: 'labels.deaths',
+                  })} ${recovered}`,
                 },
               ]}
               colorScale={['#23c9ff', '#f7b267', '#a93f55']}
-              style={{ labels: { fill: '#e4e3d3', fontSize: 10 } }}
+              style={{
+                labels: { fill: '#e4e3d3', fontSize: 10 },
+                title: { fill: '#e4e3d3', fontSize: 10 },
+              }}
             />
             <VictoryAxis
               style={{
                 axis: { stroke: '#e4e3d3' },
                 grid: { stroke: 'rgba(188, 187, 174, 0.3)' },
               }}
-              tickFormat={t => `${t} kpl`}
+              tickFormat={t => `${t} ${formatMessage({ id: 'labels.pcs' })}`}
               dependentAxis={true}
               tickLabelComponent={
                 <VictoryPortal>
@@ -102,172 +126,48 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
                 '#23c9ff',
                 '#a93f55',
                 '#f7b267',
-
                 '#6B2D5C',
                 '#D7A7B1',
               ]}
             >
               <VictoryBar
+                name="bar-confirmed"
                 maxDomain={{ y: maxConfirmedY + 20 }}
                 data={data.confirmed}
-                labels={labelsConfirmedY.map(item => item.toString())}
-                style={{
-                  labels: {
-                    fill: 'none',
-                  },
-                }}
                 animate={{
                   duration: 2000,
                 }}
-                labelComponent={<VictoryLabel dy={0} />}
-                events={[
-                  {
-                    target: 'data',
-                    eventHandlers: {
-                      onClick: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: props => {
-                              const fill = props.style && props.style.fill;
-                              return fill === '#23c9ff'
-                                ? { style: { fill: 'transparent' } }
-                                : { style: { fill: '#23c9ff' } };
-                            },
-                          },
-                        ];
-                      },
-                      onMouseEnter: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: () => {
-                              return { style: { fill: '#23c9ff' } };
-                            },
-                          },
-                        ];
-                      },
-                      onMouseLeave: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: () => {
-                              return { style: { fill: 'transparent' } };
-                            },
-                          },
-                        ];
-                      },
-                    },
+                style={{
+                  labels: {
+                    fill: '#e4e3d3',
                   },
-                ]}
+                }}
               />
               <VictoryBar
+                name="bar-deaths"
                 maxDomain={{ y: maxConfirmedY + 20 }}
                 data={data.deaths}
-                labels={labelsDeathsY.map(item => item.toString())}
                 style={{
                   labels: {
-                    fill: 'none',
+                    fill: '#e4e3d3',
                   },
                 }}
                 animate={{
                   duration: 2000,
                 }}
-                labelComponent={<VictoryLabel dy={0} />}
-                events={[
-                  {
-                    target: 'data',
-                    eventHandlers: {
-                      onClick: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: props => {
-                              const fill = props.style && props.style.fill;
-                              return fill === '#a93f55'
-                                ? { style: { fill: 'transparent' } }
-                                : { style: { fill: '#a93f55' } };
-                            },
-                          },
-                        ];
-                      },
-                      onMouseEnter: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: () => {
-                              return { style: { fill: '#a93f55' } };
-                            },
-                          },
-                        ];
-                      },
-                      onMouseLeave: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: () => {
-                              return { style: { fill: 'transparent' } };
-                            },
-                          },
-                        ];
-                      },
-                    },
-                  },
-                ]}
               />
               <VictoryBar
+                name="bar-recovered"
                 maxDomain={{ y: maxConfirmedY + 20 }}
                 data={data.recovered}
-                labels={labelsRecoveredY.map(item => item.toString())}
                 style={{
                   labels: {
-                    fill: 'none',
+                    fill: '#e4e3d3',
                   },
                 }}
                 animate={{
                   duration: 2000,
                 }}
-                labelComponent={<VictoryLabel dy={0} />}
-                events={[
-                  {
-                    target: 'data',
-                    eventHandlers: {
-                      onClick: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: props => {
-                              const fill = props.style && props.style.fill;
-                              return fill === '#f7b267'
-                                ? { style: { fill: 'transparent' } }
-                                : { style: { fill: '#f7b267' } };
-                            },
-                          },
-                        ];
-                      },
-                      onMouseEnter: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: () => {
-                              return { style: { fill: '#f7b267' } };
-                            },
-                          },
-                        ];
-                      },
-                      onMouseLeave: () => {
-                        return [
-                          {
-                            target: 'labels',
-                            mutation: () => {
-                              return { style: { fill: 'transparent' } };
-                            },
-                          },
-                        ];
-                      },
-                    },
-                  },
-                ]}
               />
             </VictoryStack>
           </VictoryChart>
