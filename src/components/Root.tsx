@@ -26,8 +26,8 @@ const Main = styled.main`
   justify-content: space-between;
   align-items: center;
   margin: 2rem 1rem 2rem 1rem;
-  width: 90%;
-  @media only screen and (min-width: 770px) {
+  width: 80%;
+  @media only screen and (min-width: 1000px) {
     width: 50rem;
   }
 `;

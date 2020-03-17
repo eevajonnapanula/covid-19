@@ -9,7 +9,7 @@ const StyledFooter = styled.footer`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  @media only screen and (min-width: 770px) {
+  @media only screen and (min-width: 768px) {
     width: 50rem;
     flex-direction: row;
     justify-content: space-around;

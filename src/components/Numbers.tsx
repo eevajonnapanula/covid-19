@@ -18,7 +18,7 @@ interface NumbersProps {
 const Rows = styled.div`
   width: 100%;
   padding-bottom: 2rem;
-  @media only screen and (min-width: 770px) {
+  @media only screen and (min-width: 768px) {
     width: 30rem;
   }
 `;
