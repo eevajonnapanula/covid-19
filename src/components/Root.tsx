@@ -18,6 +18,9 @@ const Header = styled.header`
   flex-direction: row;
   justify-content: flex-end;
   width: 100%;
+  @media only screen and (min-width: 1000px) {
+    width: 50rem;
+  }
 `;
 
 const Main = styled.main`
@@ -30,6 +33,10 @@ const Main = styled.main`
   @media only screen and (min-width: 1000px) {
     width: 50rem;
   }
+`;
+
+const ButtonGroup = styled.div`
+  margin: 0 1rem 0 1rem;
 `;
 
 interface GroupButtonProps {
@@ -63,14 +70,14 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
   return (
     <>
       <Header>
-        <div>
+        <ButtonGroup>
           <GroupButton onClick={handleLocaleChange} active={locale === 'fi'}>
             FI
           </GroupButton>
           <GroupButton onClick={handleLocaleChange} active={locale === 'en'}>
             EN
           </GroupButton>
-        </div>
+        </ButtonGroup>
       </Header>
       <Main>
         <h1>
