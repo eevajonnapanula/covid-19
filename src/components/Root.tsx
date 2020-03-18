@@ -60,6 +60,21 @@ const GroupButton = styled.button<GroupButtonProps>`
   }
 `;
 
+const NotificationBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.5rem;
+  align-items: center;
+  background-color: #222139;
+  padding: 2rem;
+  width: 80%;
+  margin: 2rem 1rem 2rem 1rem;
+  @media only screen and (min-width: 768px) {
+    width: 26rem;
+  }
+`;
+
 const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
   const { locale } = useIntl();
   const { data } = useQuery(GET_DATA);
@@ -83,6 +98,24 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
         <h1>
           <FormattedMessage id="site.title" />
         </h1>
+        <NotificationBox>
+          <p>
+            <FormattedMessage id="site.notification" />
+          </p>
+          <p>
+            {locale === 'en' ? (
+              <a href="https://yle.fi/uutiset/osasto/news/hus_coronavirus_testing_to_focus_on_health_professionals/11257869">
+                HUS: Coronavirus testing to focus on health professionals - YLE
+              </a>
+            ) : (
+              <a href="https://www.hs.fi/kotimaa/art-2000006440293.html">
+                Testaus­tavan muutos Husissa vähensi havaittuja tartuntoja
+                sunnuntaina – Suomi tartunnoissa yhä Pohjois­maiden tahdissa -
+                HS
+              </a>
+            )}
+          </p>
+        </NotificationBox>
         {data && (
           <>
             <Numbers
