@@ -1,22 +1,29 @@
 import React, { FunctionComponent } from 'react';
 import {
+  createContainer,
   VictoryTheme,
   VictoryChart,
   VictoryLine,
   VictoryLabel,
   VictoryAxis,
-  VictoryVoronoiContainer,
   VictoryPortal,
   VictoryTooltip,
   VictoryScatter,
 } from 'victory';
 import { XAndY } from '../../interfaces';
 import { useIntl } from 'react-intl';
+import { VictoryVoronoiContainerProps } from 'victory-voronoi-container';
+import { VictoryZoomContainerProps } from 'victory-zoom-container';
 
 interface LineChartProps {
   data: XAndY[];
   title: string;
 }
+
+const VictoryZoomVoronoiContainer = createContainer<
+  VictoryZoomContainerProps,
+  VictoryVoronoiContainerProps
+>('zoom', 'voronoi');
 
 const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
   const labels = data.map(item => item.y);
@@ -27,7 +34,15 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data, title }) => {
       <VictoryChart
         theme={VictoryTheme.grayscale}
         domainPadding={20}
-        containerComponent={<VictoryVoronoiContainer responsive={true} />}
+        containerComponent={
+          <VictoryZoomVoronoiContainer
+            responsive={true}
+            allowPan={true}
+            zoomDomain={{ x: [data.length - 14, data.length] }}
+            zoomDimension="x"
+            voronoiDimension="x"
+          />
+        }
         padding={{ bottom: 100 }}
       >
         <VictoryAxis

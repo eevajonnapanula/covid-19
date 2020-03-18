@@ -2,13 +2,14 @@ import isSameDay from 'date-fns/isSameDay';
 import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
-import subDays from 'date-fns/subDays';
 import { DataItem, XAndY } from '../interfaces';
 
-const dates = eachDayOfInterval({
-  start: subDays(new Date(), 14),
-  end: new Date(),
-});
+const getDates = (start: string) => {
+  return eachDayOfInterval({
+    start: new Date(start),
+    end: new Date(),
+  });
+};
 
 export const formatDataToXAndY = (arr: DataItem[], value: string) => {
   return arr.reduce((acc: XAndY[], curr: DataItem) => {
@@ -34,7 +35,8 @@ export const formatDataToXAndY = (arr: DataItem[], value: string) => {
   }, []);
 };
 
-export const formatDatesToXAndY = (data: DataItem[]) => {
+export const formatDatesToXAndY = (data: DataItem[], firstDate: string) => {
+  const dates = getDates(firstDate);
   return dates.map(date => {
     return {
       x: format(date, 'dd.MM'),
@@ -44,20 +46,25 @@ export const formatDatesToXAndY = (data: DataItem[]) => {
 };
 
 export const formatTotalInfections = (data: DataItem[]) => {
-  return dates.reduce((acc: XAndY[], curr: Date, index: number) => {
-    if (index === 0) {
-      acc.push({
-        x: format(curr, 'dd.MM'),
-        y: data.filter(item => isSameDay(parseISO(item.date), curr)).length,
-      });
-    } else {
-      acc.push({
-        x: format(curr, 'dd.MM'),
-        y:
-          acc[index - 1].y +
-          data.filter(item => isSameDay(parseISO(item.date), curr)).length,
-      });
-    }
-    return acc;
-  }, []);
+  if (data[0]) {
+    const dates = getDates(data[0].date);
+
+    return dates.reduce((acc: XAndY[], curr: Date, index: number) => {
+      if (index === 0) {
+        acc.push({
+          x: format(curr, 'dd.MM'),
+          y: data.filter(item => isSameDay(parseISO(item.date), curr)).length,
+        });
+      } else {
+        acc.push({
+          x: format(curr, 'dd.MM'),
+          y:
+            acc[index - 1].y +
+            data.filter(item => isSameDay(parseISO(item.date), curr)).length,
+        });
+      }
+      return acc;
+    }, []);
+  }
+  return [];
 };

@@ -14,7 +14,7 @@ Project is live in [https://eevis.codes/covid-19](https://eevis.codes/covid-19)
 
 ## Development
 
-First, install dependencies 
+First, install dependencies
 
 `npm install`
 
@@ -26,4 +26,3 @@ then, run the project
 
 - [ ] Make site accessible
   - Right now this site is not accessible, and needs refactoring etc.
-- [ ] Add zooming and possibility to scroll trough days in charts

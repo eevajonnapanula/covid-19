@@ -8,15 +8,22 @@ import {
   VictoryLabel,
   VictoryStack,
   VictoryLegend,
-  VictoryVoronoiContainer,
+  createContainer,
 } from 'victory';
 import { DataInXAndY } from '../../interfaces';
 import { useIntl } from 'react-intl';
+import { VictoryZoomContainerProps } from 'victory-zoom-container';
+import { VictoryVoronoiContainerProps } from 'victory-voronoi-container';
 
 interface GroupChartProps {
   data: DataInXAndY;
   title: string;
 }
+
+const VictoryZoomVoronoiContainer = createContainer<
+  VictoryZoomContainerProps,
+  VictoryVoronoiContainerProps
+>('zoom', 'voronoi');
 
 const getmaxConfirmedY = (labels: number[]) =>
   labels.length > 0 ? Math.max(...labels) : 0;
@@ -57,8 +64,14 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
             domainPadding={20}
             padding={{ bottom: 100 }}
             containerComponent={
-              <VictoryVoronoiContainer
+              <VictoryZoomVoronoiContainer
+                responsive={true}
                 onActivated={points => handleActivate(points)}
+                allowPan={true}
+                zoomDomain={{
+                  x: [data.confirmed.length - 14, data.confirmed.length],
+                }}
+                zoomDimension="x"
                 voronoiDimension="x"
               />
             }
@@ -129,6 +142,7 @@ const GroupChart: FunctionComponent<GroupChartProps> = ({ data, title }) => {
                 '#6B2D5C',
                 '#D7A7B1',
               ]}
+              style={{ data: { width: 15 } }}
             >
               <VictoryBar
                 name="bar-confirmed"

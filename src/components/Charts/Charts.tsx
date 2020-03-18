@@ -42,9 +42,9 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
       );
       setCountries(formattedCountries);
       const formattedInfectionsPerDay = {
-        confirmed: formatDatesToXAndY(data.confirmed),
-        deaths: formatDatesToXAndY(data.deaths),
-        recovered: formatDatesToXAndY(data.recovered),
+        confirmed: formatDatesToXAndY(data.confirmed, data.confirmed[0].date),
+        deaths: formatDatesToXAndY(data.deaths, data.confirmed[0].date),
+        recovered: formatDatesToXAndY(data.recovered, data.confirmed[0].date),
       };
       setInfectionsPerDay(formattedInfectionsPerDay);
       const formattedTotalInfectionsPerDay = formatTotalInfections(
