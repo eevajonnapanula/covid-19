@@ -1,6 +1,7 @@
 import isSameDay from 'date-fns/isSameDay';
 import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
+import isBefore from 'date-fns/isBefore';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import { DataItem, XAndY } from '../interfaces';
 
@@ -68,3 +69,13 @@ export const formatTotalInfections = (data: DataItem[]) => {
   }
   return [];
 };
+
+export const sortDataByDate = (data: XAndY[]) =>
+  data.sort((a, b) => {
+    if (isSameDay(parseISO(a.x as string), parseISO(b.x as string))) {
+      return 0;
+    } else if (isBefore(parseISO(a.x as string), parseISO(b.x as string))) {
+      return 1;
+    }
+    return -1;
+  });
