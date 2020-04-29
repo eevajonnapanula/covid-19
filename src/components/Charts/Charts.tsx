@@ -5,12 +5,10 @@ import {
   formatDataToXAndY,
   formatDatesToXAndY,
   formatTotalInfections,
-  sortDataByDate,
 } from '../../utils/dataUtils';
 import { useIntl } from 'react-intl';
 import GroupChart from './GroupChart';
 import { Data, XAndY, DataInXAndY } from '../../interfaces';
-import Table from './Table';
 
 interface ChartsProps {
   data: Data;
@@ -28,7 +26,6 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
   const [totalInfectionsPerDay, setTotalInfectionsPerDay] = useState<XAndY[]>(
     []
   );
-  const [totalInfectionsAsc, setTotalInfectionsAsc] = useState<XAndY[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -46,9 +43,7 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
       const formattedTotalInfectionsPerDay = formatTotalInfections(
         data.confirmed
       );
-      const asc = formatTotalInfections(data.confirmed);
       setTotalInfectionsPerDay(formattedTotalInfectionsPerDay);
-      setTotalInfectionsAsc(sortDataByDate(asc));
     }
   }, [data]);
 
@@ -59,7 +54,6 @@ const Charts: FunctionComponent<ChartsProps> = ({ data }) => {
           data={totalInfectionsPerDay}
           title={formatMessage({ id: 'charts.totalInfectionsPerDay' })}
         />
-        <Table data={totalInfectionsAsc} x="Date" y="Number of cases" />
         <GroupChart
           data={infectionsPerDay}
           title={formatMessage({ id: 'charts.infectionsPerDay' })}

@@ -3,7 +3,7 @@
   "site.titles.confirmed": "Varmistetut tapaukset",
   "site.titles.deaths": "Kuolemat",
   "site.titles.recovered": "Parantuneet",
-  "site.notification": "Testaustavan muutoksen vuoksi kaikkia tapauksia ei tulla enää todentamaan, ja näinollen tartuntojen määrät ovat vähäisempiä. Lue lisää:",
+  "site.notification": "Huom! Graafit (ja muutamat muutamat muut elementit) eivät ole tällä hetkellä saavutettavia. Tämä on tarkoitus korjata, kunhan aikaa tähän löytyy.",
   "footer.data-source": "Datalähde: {HSLink}",
   "footer.made-by": "Lähdekoodi: {GithubLink}",
   "numbers.confirmed": "varmistettua tapausta",
