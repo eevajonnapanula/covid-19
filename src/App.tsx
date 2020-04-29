@@ -23,6 +23,7 @@ const App = () => {
   const hanldeLocaleChange = () => {
     localStorage.setItem('locale', locale === 'en' ? 'fi' : 'en');
     setLocale(locale === 'en' ? 'fi' : 'en');
+    document.documentElement.lang = locale === 'en' ? 'fi' : 'en';
   };
 
   return (
