@@ -3,7 +3,7 @@
   "site.titles.confirmed": "Confirmed cases",
   "site.titles.deaths": "Deaths",
   "site.titles.recovered": "Recovered",
-  "site.notification": "Due to changes in testing policies in some healthcare districts, not all cases will be confirmed. Read more: ",
+  "site.notification": "Note: Charts (and some other things) are currently inaccessible. There is a plan to fix this as soon as I have enough time to do it.",
   "footer.data-source": "Data-source: {HSLink}",
   "footer.made-by": "Source code in {GithubLink}",
   "numbers.confirmed": "confirmed",

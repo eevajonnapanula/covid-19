@@ -44,9 +44,9 @@ interface GroupButtonProps {
 }
 
 const GroupButton = styled.button<GroupButtonProps>`
-  background-color: ${props => (props.active ? '#e4e3d3' : '#2e2d4d')};
+  background-color: ${(props) => (props.active ? '#e4e3d3' : '#2e2d4d')};
   border: 0.125rem solid #e4e3d3;
-  color: ${props => (props.active ? '#2e2d4d' : '#e4e3d3')};
+  color: ${(props) => (props.active ? '#2e2d4d' : '#e4e3d3')};
   padding: 1rem;
   width: 4rem;
   &:first-child {
@@ -101,19 +101,6 @@ const Root: FunctionComponent<RootProps> = ({ changeLocale }) => {
         <NotificationBox>
           <p>
             <FormattedMessage id="site.notification" />
-          </p>
-          <p>
-            {locale === 'en' ? (
-              <a href="https://yle.fi/uutiset/osasto/news/hus_coronavirus_testing_to_focus_on_health_professionals/11257869">
-                HUS: Coronavirus testing to focus on health professionals - YLE
-              </a>
-            ) : (
-              <a href="https://www.hs.fi/kotimaa/art-2000006440293.html">
-                Testaus­tavan muutos Husissa vähensi havaittuja tartuntoja
-                sunnuntaina – Suomi tartunnoissa yhä Pohjois­maiden tahdissa -
-                HS
-              </a>
-            )}
           </p>
         </NotificationBox>
         {data && (
